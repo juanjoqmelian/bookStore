@@ -23,7 +23,6 @@ public class AddBookIT extends AcceptanceTestEnvironment{
         this.successPage = webFactory.successPage();
     }
 
-    @Ignore
     @Test
     public void shouldOpenAddBookPage() {
 

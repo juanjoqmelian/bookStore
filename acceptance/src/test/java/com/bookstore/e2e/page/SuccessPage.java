@@ -19,7 +19,7 @@ public class SuccessPage {
     public SuccessPage(WebDriver driver, int port) {
 
         this.driver = driver;
-        this.url = String.format("http://localhost:%s/bookstore", port);
+        this.url = String.format("http://localhost:%s/bookstore/success", port);
     }
 
     public SuccessPage assertIsOpened() {

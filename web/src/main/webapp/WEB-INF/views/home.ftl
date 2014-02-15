@@ -5,8 +5,10 @@
 <body>
 <h1>Book Store</h1>
 
-<input type="text" id="searchText" name="searchText" placeholder="Input text..."/>
-<input type="button" id="searchButton" value="Search"/>
+<form id="search" action="/search">
+    <input type="text" id="searchText" name="searchText" placeholder="Input text..."/>
+    <input type="button" id="searchButton" value="Search"/>
+</form>
 <div>
     <table id="books">
         <thead>
@@ -26,7 +28,9 @@
             <td></td>
         </tr>
     </table>
-    <input type="button" id="addButton" value="Add"/>
+    <form id="add" action="book/showAdd">
+        <input type="submit" id="addButton" value="Add"/>
+    </form>
 </div>
 </body>
 </html>
