@@ -32,7 +32,6 @@ public class EditBookPage {
     public EditBookPage open() {
 
         driver.navigate().to(url);
-        initWebElements();
         return this;
     }
 
@@ -68,6 +67,7 @@ public class EditBookPage {
 
         assertThat(driver.getCurrentUrl(), is(url));
         assertThat(driver.getTitle(), is("Book Store - Edit Book"));
+        initWebElements();
         return this;
     }
 

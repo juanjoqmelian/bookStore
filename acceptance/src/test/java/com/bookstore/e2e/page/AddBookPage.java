@@ -32,7 +32,6 @@ public class AddBookPage {
     public AddBookPage open() {
 
         driver.navigate().to(url);
-        initWebElements();
         return this;
     }
 
@@ -65,6 +64,7 @@ public class AddBookPage {
     public AddBookPage assertIsOpened() {
         assertThat(driver.getCurrentUrl(), is(url));
         assertThat(driver.getTitle(), is("Book Store - Add new book"));
+        initWebElements();
         return this;
     }
 

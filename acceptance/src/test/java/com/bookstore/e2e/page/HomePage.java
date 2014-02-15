@@ -28,7 +28,6 @@ public class HomePage {
     public HomePage open() {
 
         driver.navigate().to(url);
-        initWebElements();
         return this;
     }
 
@@ -70,6 +69,7 @@ public class HomePage {
 
         assertThat(driver.getCurrentUrl(), is(url));
         assertThat(driver.getTitle(), is("Book Store Home"));
+        initWebElements();
         return this;
     }
 }

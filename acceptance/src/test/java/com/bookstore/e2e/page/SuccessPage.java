@@ -24,7 +24,6 @@ public class SuccessPage {
 
     public SuccessPage assertIsOpened() {
 
-        assertThat(driver.getCurrentUrl(), is(url));
         assertThat(driver.getTitle(), is("Success Page"));
         return this;
     }
