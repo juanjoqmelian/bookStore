@@ -2,6 +2,7 @@ package com.bookstore.e2e;
 
 import com.bookstore.e2e.page.EditBookPage;
 import com.bookstore.e2e.page.HomePage;
+import com.bookstore.e2e.page.SuccessPage;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,11 +13,14 @@ public class EditBookIT extends AcceptanceTestEnvironment{
 
     private EditBookPage editBookPage;
 
+    private SuccessPage successPage;
+
     @Before
     public void setUp() {
 
         this.homePage = webFactory.homePage();
         this.editBookPage = webFactory.editBookPage();
+        this.successPage = webFactory.successPage();
     }
 
     @Ignore
@@ -35,8 +39,10 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         editBookPage.assertIsOpened()
                 .edit(name, category, year, price);
 
-        homePage.assertIsOpened()
-                .assertAddedBookSuccessMessage();
+        successPage.assertIsOpened()
+                .goAhead();
+
+        homePage.assertIsOpened();
     }
 
     @Ignore

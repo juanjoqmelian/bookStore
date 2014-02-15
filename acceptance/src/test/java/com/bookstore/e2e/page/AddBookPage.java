@@ -26,7 +26,7 @@ public class AddBookPage {
     public AddBookPage(WebDriver driver, int port) {
 
         this.driver = driver;
-        this.url = String.format("http://localhost:%s/bookStore/add", port);
+        this.url = String.format("http://localhost:%s/bookstore/add", port);
     }
 
     public AddBookPage open() {

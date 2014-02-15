@@ -29,4 +29,8 @@ public class WebNavigationFactory {
     public EditBookPage editBookPage() {
         return new EditBookPage(driver, port);
     }
+
+    public SuccessPage successPage() {
+        return new SuccessPage(driver, port);
+    }
 }

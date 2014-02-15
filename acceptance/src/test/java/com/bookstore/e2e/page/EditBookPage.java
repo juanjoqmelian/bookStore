@@ -26,7 +26,7 @@ public class EditBookPage {
     public EditBookPage(WebDriver driver, int port) {
 
         this.driver = driver;
-        this.url = String.format("http://localhost:%s/bookStore/edit", port);
+        this.url = String.format("http://localhost:%s/bookstore/edit", port);
     }
 
     public EditBookPage open() {

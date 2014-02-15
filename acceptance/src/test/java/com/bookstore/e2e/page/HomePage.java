@@ -18,13 +18,11 @@ public class HomePage {
     private List<WebElement> books;
     private WebElement addButton;
 
-    private WebElement message;
-
     private final String url;
 
     public HomePage(WebDriver driver, int port) {
         this.driver = driver;
-        url = String.format("http://localhost:%s/bookStore", port);
+        url = String.format("http://localhost:%s/bookstore/", port);
     }
 
     public HomePage open() {
@@ -59,7 +57,6 @@ public class HomePage {
         this.searchButton = driver.findElement(By.id("searchButton"));
         this.books = getBooksTableRecords();
         this.addButton = driver.findElement(By.id("addButton"));
-        this.message = driver.findElement(By.id("message"));
     }
 
     private List<WebElement> getBooksTableRecords() {
@@ -73,12 +70,6 @@ public class HomePage {
 
         assertThat(driver.getCurrentUrl(), is(url));
         assertThat(driver.getTitle(), is("Book Store Home"));
-        return this;
-    }
-
-    public HomePage assertAddedBookSuccessMessage() {
-
-        assertThat(this.message.getText(), is("Book added successfully."));
         return this;
     }
 }

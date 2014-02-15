@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.bookStore</groupId>
-        <artifactId>bookStore</artifactId>
+        <groupId>com.bookstore</groupId>
+        <artifactId>bookstore</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.bookStore</groupId>
+    <groupId>com.bookstore</groupId>
     <artifactId>model</artifactId>
 
     

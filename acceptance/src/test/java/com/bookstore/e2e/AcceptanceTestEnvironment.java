@@ -18,7 +18,7 @@ public abstract class AcceptanceTestEnvironment {
 
     private static final Logger logger = LoggerFactory.getLogger(AcceptanceTestEnvironment.class);
 
-    private static final String WEBSITE_CONTEXT_PATH = "/bookStore";
+    private static final String WEBSITE_CONTEXT_PATH = "/bookstore";
     private static final int PORT = 8090; //Change to 8081 for manual test running
 
     private static final String FIREBUG_PATH = "firebug-1.11.4.xpi";

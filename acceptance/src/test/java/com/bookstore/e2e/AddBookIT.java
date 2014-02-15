@@ -2,6 +2,7 @@ package com.bookstore.e2e;
 
 import com.bookstore.e2e.page.AddBookPage;
 import com.bookstore.e2e.page.HomePage;
+import com.bookstore.e2e.page.SuccessPage;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -12,11 +13,14 @@ public class AddBookIT extends AcceptanceTestEnvironment{
 
     private AddBookPage addBookPage;
 
+    private SuccessPage successPage;
+
     @Before
     public void setUp() {
 
         this.homePage = webFactory.homePage();
         this.addBookPage = webFactory.addBookPage();
+        this.successPage = webFactory.successPage();
     }
 
     @Ignore
@@ -46,8 +50,10 @@ public class AddBookIT extends AcceptanceTestEnvironment{
         addBookPage.assertIsOpened()
                 .save(name, category, year, price);
 
-        homePage.assertIsOpened()
-                .assertAddedBookSuccessMessage();
+        successPage.assertIsOpened()
+                .goAhead();
+
+        homePage.assertIsOpened();
     }
 
     @Ignore
