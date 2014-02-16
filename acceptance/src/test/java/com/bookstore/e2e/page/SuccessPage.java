@@ -1,5 +1,6 @@
 package com.bookstore.e2e.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -25,7 +26,13 @@ public class SuccessPage {
     public SuccessPage assertIsOpened() {
 
         assertThat(driver.getTitle(), is("Success Page"));
+        initWebElements();
         return this;
+    }
+
+    private void initWebElements() {
+
+        this.continueButton = driver.findElement(By.id("continueButton"));
     }
 
     public SuccessPage goAhead() {

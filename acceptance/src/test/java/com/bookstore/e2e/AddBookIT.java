@@ -4,7 +4,6 @@ import com.bookstore.e2e.page.AddBookPage;
 import com.bookstore.e2e.page.HomePage;
 import com.bookstore.e2e.page.SuccessPage;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class AddBookIT extends AcceptanceTestEnvironment{
@@ -33,7 +32,7 @@ public class AddBookIT extends AcceptanceTestEnvironment{
         addBookPage.assertIsOpened();
     }
 
-    @Ignore
+
     @Test
     public void shouldCreateANewBook() {
 
@@ -55,7 +54,6 @@ public class AddBookIT extends AcceptanceTestEnvironment{
         homePage.assertIsOpened();
     }
 
-    @Ignore
     @Test
     public void shouldShowErrorIfNameIsEmpty() {
 
@@ -73,7 +71,6 @@ public class AddBookIT extends AcceptanceTestEnvironment{
                 .assertMandatoryNameError();
     }
 
-    @Ignore
     @Test
     public void shouldShowErrorIfPriceIsEmpty() {
 
@@ -81,6 +78,40 @@ public class AddBookIT extends AcceptanceTestEnvironment{
         final String category = "Java";
         final String year = "2000";
         final String empty_price = "";
+
+        homePage.open()
+                .assertIsOpened()
+                .addBook();
+
+        addBookPage.assertIsOpened()
+                .save(name, category, year, empty_price)
+                .assertMandatoryPriceError();
+    }
+
+    @Test
+    public void shouldShowErrorIfPriceIsANegativeNumber() {
+
+        final String name = "Effective Java";
+        final String category = "Java";
+        final String year = "2000";
+        final String empty_price = "-1";
+
+        homePage.open()
+                .assertIsOpened()
+                .addBook();
+
+        addBookPage.assertIsOpened()
+                .save(name, category, year, empty_price)
+                .assertMandatoryPriceError();
+    }
+
+    @Test
+    public void shouldShowErrorIfPriceIsNotANumber() {
+
+        final String name = "Effective Java";
+        final String category = "Java";
+        final String year = "2000";
+        final String empty_price = "Zero";
 
         homePage.open()
                 .assertIsOpened()

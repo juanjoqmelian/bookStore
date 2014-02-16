@@ -19,7 +19,7 @@ public abstract class AcceptanceTestEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(AcceptanceTestEnvironment.class);
 
     private static final String WEBSITE_CONTEXT_PATH = "/bookstore";
-    private static final int PORT = 8090; //Change to 8081 for manual test running
+    private static final int PORT = 8090;
 
     private static final String FIREBUG_PATH = "firebug-1.11.4.xpi";
     private static final String FIREBUG_EXTENSION_KEY = "extensions.firebug.currentVersion";
@@ -31,7 +31,7 @@ public abstract class AcceptanceTestEnvironment {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        //openFirefox(); //In case you need to visualize
+        //openFirefox(); //Remove comment to visualize test in FireFox
         openHtmlUnit();
         webFactory = new WebNavigationFactory(driver, PORT, WEBSITE_CONTEXT_PATH);
     }
@@ -55,7 +55,7 @@ public abstract class AcceptanceTestEnvironment {
         try {
             driver = new FirefoxDriver(buildProfile());
         } catch (IOException e) {
-            logger.error("An exception occurred trying to open firefox driver:", e);
+            logger.error("An exception occurred trying to open FireFox driver:", e);
             closeDriver();
         }
     }

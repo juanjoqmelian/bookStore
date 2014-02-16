@@ -1,6 +1,9 @@
 package com.bookstore.web.form;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
+
+import javax.validation.constraints.Min;
 
 public class BookForm {
 
@@ -11,8 +14,9 @@ public class BookForm {
 
     private String year;
 
-    @NotEmpty
-    private Double price;
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    @Min(0)
+    private String price;
 
 
 
@@ -40,11 +44,11 @@ public class BookForm {
         this.year = year;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

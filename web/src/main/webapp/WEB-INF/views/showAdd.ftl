@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>BeShowcased signup page</h1>
-<@form.form commandName="bookForm" method="post" action="/book/create">
+<@form.form commandName="bookForm" method="post" action="create">
 <span>Name*</span>
     <@form.input type="text" id="name" path="name"  size="20px" maxlength="50"/>
     <@form.errors path="name" cssClass="error"/>

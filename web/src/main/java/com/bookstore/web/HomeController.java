@@ -14,7 +14,7 @@ public class HomeController {
     @RequestMapping
     public String home() {
 
-        logger.info("Entering home page...");
+        logger.debug("Entering home page...");
         return "home";
     }
 }
