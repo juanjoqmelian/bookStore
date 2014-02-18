@@ -15,7 +15,7 @@ public class HomePage {
 
     private WebElement searchText;
     private WebElement searchButton;
-    private List<WebElement> books;
+    private List<WebElement> editLinks;
     private WebElement addButton;
 
     private final String url;
@@ -39,7 +39,7 @@ public class HomePage {
 
     public HomePage editBook(int position) {
 
-        this.books.get(position).findElement(By.xpath("a")).click();
+        this.editLinks.get(position).click();
         return this;
     }
 
@@ -54,15 +54,13 @@ public class HomePage {
 
         this.searchText = driver.findElement(By.id("searchText"));
         this.searchButton = driver.findElement(By.id("searchButton"));
-        this.books = getBooksTableRecords();
+        this.editLinks = getEditLinks();
         this.addButton = driver.findElement(By.id("addButton"));
     }
 
-    private List<WebElement> getBooksTableRecords() {
+    private List<WebElement> getEditLinks() {
 
-        WebElement table = driver.findElement(By.id("books"));
-
-        return table.findElements(By.xpath("tr"));
+        return driver.findElements(By.className("link"));
     }
 
     public HomePage assertIsOpened() {

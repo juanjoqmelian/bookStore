@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
 
 public class EditBookPage {
@@ -65,7 +66,7 @@ public class EditBookPage {
 
     public EditBookPage assertIsOpened() {
 
-        assertThat(driver.getCurrentUrl(), is(url));
+        assertThat(driver.getCurrentUrl(), startsWith(url));
         assertThat(driver.getTitle(), is("Book Store - Edit Book"));
         initWebElements();
         return this;

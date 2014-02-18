@@ -2,11 +2,12 @@
 
 <html>
 <head>
-    <title>Book Store - Add new book</title>
+    <title>Book Store - Edit Book</title>
 </head>
 <body>
 <h1>Book Store</h1>
-<@form.form commandName="bookForm" method="post" action="create">
+<@form.form commandName="bookForm" method="post" action="/bookstore/book/update">
+    <@form.input type="hidden" id="id" path="id" value="${bookId}" size="20px" maxlength="50"/>
 <span>Name*</span>
     <@form.input type="text" id="name" path="name"  size="20px" maxlength="50"/>
     <@form.errors path="name" cssClass="error"/>
@@ -25,7 +26,7 @@
     <@form.errors path="price" cssClass="error"/>
 <br/>
 <br/>
-<input type="submit" id="saveButton" value="Save" size="12px"/>
+<input type="submit" id="editButton" value="Update" size="12px"/>
 <input type="button" id="cancelButton" value="Cancel" size="12px"/>
 </@form.form>
 </body>

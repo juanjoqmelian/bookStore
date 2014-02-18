@@ -23,6 +23,16 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         this.successPage = webFactory.successPage();
     }
 
+    @Test
+    public void shouldOpenEditPage() {
+
+        homePage.open()
+                .assertIsOpened()
+                .editBook(0);
+
+        editBookPage.assertIsOpened();
+    }
+
     @Ignore
     @Test
     public void shouldEditBook() {

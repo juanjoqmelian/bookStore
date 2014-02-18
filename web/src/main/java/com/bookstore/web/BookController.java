@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -43,6 +41,37 @@ public class BookController {
 
         if (result.hasErrors()) {
            return "showAdd";
+        }
+
+        return "success";
+    }
+
+    @RequestMapping(value = "/showEdit/{id}")
+    public String showEdit(@PathVariable(value = "id") String id) {
+
+        logger.debug("Redirecting to edit url...");
+
+        return "redirect:/book/edit/"+id+"/";
+    }
+
+    @RequestMapping(value = "/edit/{id}")
+    public String edit(@PathVariable(value = "id") String id, Model model) {
+
+        logger.debug("Redirecting to edit view...");
+
+        model.addAttribute(new BookForm());
+        model.addAttribute("bookId", id);
+
+        return "showEdit";
+    }
+
+    @RequestMapping(value = "/update}")
+    public String update(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) {
+
+        logger.debug("Updating book...");
+
+        if (result.hasErrors()) {
+            return "showEdit";
         }
 
         return "success";

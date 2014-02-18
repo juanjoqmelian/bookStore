@@ -10,23 +10,23 @@
     <input type="button" id="searchButton" value="Search"/>
 </form>
 <div>
-    <table id="books">
-        <thead>
-            <tr>
-                <td>Name</td>
-                <td>Category</td>
-                <td>Year</td>
-                <td>Price</td>
-                <td>Edit</td>
-            </tr>
-        </thead>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+    <div id="books">
+        <div id="head">
+            <span>
+                <span>Name</span>
+                <span>Category</span>
+                <span>Year</span>
+                <span>Price</span>
+                <span>Edit</span>
+            </span>
+        </div>
+        <div id="row">
+            <span>Effective Java</span>
+            <span>Java</span>
+            <span>2000</span>
+            <span>20.90$</span>
+            <span><a class="link" href="book/showEdit/11111/">Edit</a></span>
+        </div>
     </table>
     <form id="add" action="book/showAdd">
         <input type="submit" id="addButton" value="Add"/>
