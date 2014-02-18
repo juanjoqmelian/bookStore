@@ -7,7 +7,7 @@
 <body>
 <h1>Book Store</h1>
 <@form.form commandName="bookForm" method="post" action="/bookstore/book/update">
-    <@form.input type="hidden" id="id" path="id" value="${bookId}" size="20px" maxlength="50"/>
+    <@form.hidden path="id"/>
 <span>Name*</span>
     <@form.input type="text" id="name" path="name"  size="20px" maxlength="50"/>
     <@form.errors path="name" cssClass="error"/>

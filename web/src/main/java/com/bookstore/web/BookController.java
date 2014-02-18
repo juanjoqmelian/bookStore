@@ -59,13 +59,14 @@ public class BookController {
 
         logger.debug("Redirecting to edit view...");
 
-        model.addAttribute(new BookForm());
-        model.addAttribute("bookId", id);
+        BookForm bookForm = new BookForm();
+        bookForm.setId(id);
+        model.addAttribute(bookForm);
 
         return "showEdit";
     }
 
-    @RequestMapping(value = "/update}")
+    @RequestMapping(value = "/update")
     public String update(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) {
 
         logger.debug("Updating book...");

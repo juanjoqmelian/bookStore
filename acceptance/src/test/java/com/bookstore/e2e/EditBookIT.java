@@ -4,7 +4,6 @@ import com.bookstore.e2e.page.EditBookPage;
 import com.bookstore.e2e.page.HomePage;
 import com.bookstore.e2e.page.SuccessPage;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class EditBookIT extends AcceptanceTestEnvironment{
@@ -33,7 +32,6 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         editBookPage.assertIsOpened();
     }
 
-    @Ignore
     @Test
     public void shouldEditBook() {
 
@@ -55,7 +53,6 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         homePage.assertIsOpened();
     }
 
-    @Ignore
     @Test
     public void shouldShowErrorIfNameIsEmpty() {
 
@@ -73,7 +70,7 @@ public class EditBookIT extends AcceptanceTestEnvironment{
                 .assertMandatoryNameError();
     }
 
-    @Ignore
+
     @Test
     public void shouldShowErrorIfPriceIsEmpty() {
 

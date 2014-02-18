@@ -29,6 +29,7 @@
         <hibernate.version>4.2.0.Final</hibernate.version>
         <surfire.version>2.16</surfire.version>
         <failsafe.version>2.16</failsafe.version>
+        <sonar-plugin.version>2.1</sonar-plugin.version>
     </properties>
 
 
@@ -211,6 +212,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${failsafe.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
