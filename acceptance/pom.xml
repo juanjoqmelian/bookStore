@@ -21,6 +21,16 @@
             <type>war</type>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.bookstore</groupId>
+            <artifactId>service</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bookstore</groupId>
+            <artifactId>data</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Spring dependencies -->
 

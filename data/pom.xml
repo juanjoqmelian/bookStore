@@ -13,5 +13,23 @@
     <groupId>com.bookstore</groupId>
     <artifactId>data</artifactId>
 
-    
+    <dependencies>
+        <dependency>
+            <groupId>com.bookstore</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <!-- Spring Data -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
