@@ -85,7 +85,6 @@ public class AddBookIT extends AcceptanceTestEnvironment{
     @Test
     public void shouldShowErrorIfPriceIsANegativeNumber() {
 
-        final String name = "Effective Java";
         final String empty_price = "-1";
 
         homePage.open()
@@ -93,7 +92,7 @@ public class AddBookIT extends AcceptanceTestEnvironment{
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(name, CATEGORY, YEAR, empty_price)
+                .save(BOOK_NAME, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
     }
 
