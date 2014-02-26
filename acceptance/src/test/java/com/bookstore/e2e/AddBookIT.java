@@ -8,6 +8,11 @@ import org.junit.Test;
 
 public class AddBookIT extends AcceptanceTestEnvironment{
 
+    private static final String BOOK_NAME = "Effective Java";
+    public static final String CATEGORY = "Java";
+    public static final String YEAR = "2000";
+    public static final String PRICE = "22.90";
+
     private HomePage homePage;
 
     private AddBookPage addBookPage;
@@ -36,17 +41,12 @@ public class AddBookIT extends AcceptanceTestEnvironment{
     @Test
     public void shouldCreateANewBook() {
 
-        final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
-        final String price = "22.90";
-
         homePage.open()
                 .assertIsOpened()
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(name, category, year, price);
+                .save(BOOK_NAME, CATEGORY, YEAR, PRICE);
 
         successPage.assertIsOpened()
                 .goAhead();
@@ -58,25 +58,19 @@ public class AddBookIT extends AcceptanceTestEnvironment{
     public void shouldShowErrorIfNameIsEmpty() {
 
         final String empty_name = "";
-        final String category = "Java";
-        final String year = "2000";
-        final String price = "22.90";
 
         homePage.open()
                 .assertIsOpened()
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(empty_name, category, year, price)
+                .save(empty_name, CATEGORY, YEAR, PRICE)
                 .assertMandatoryNameError();
     }
 
     @Test
     public void shouldShowErrorIfPriceIsEmpty() {
 
-        final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
         final String empty_price = "";
 
         homePage.open()
@@ -84,7 +78,7 @@ public class AddBookIT extends AcceptanceTestEnvironment{
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(name, category, year, empty_price)
+                .save(BOOK_NAME, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
     }
 
@@ -92,8 +86,6 @@ public class AddBookIT extends AcceptanceTestEnvironment{
     public void shouldShowErrorIfPriceIsANegativeNumber() {
 
         final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
         final String empty_price = "-1";
 
         homePage.open()
@@ -101,16 +93,13 @@ public class AddBookIT extends AcceptanceTestEnvironment{
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(name, category, year, empty_price)
+                .save(name, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
     }
 
     @Test
     public void shouldShowErrorIfPriceIsNotANumber() {
 
-        final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
         final String empty_price = "Zero";
 
         homePage.open()
@@ -118,7 +107,7 @@ public class AddBookIT extends AcceptanceTestEnvironment{
                 .addBook();
 
         addBookPage.assertIsOpened()
-                .save(name, category, year, empty_price)
+                .save(BOOK_NAME, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
     }
 }

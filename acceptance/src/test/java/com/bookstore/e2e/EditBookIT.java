@@ -9,10 +9,14 @@ import org.junit.Test;
 
 public class EditBookIT extends AcceptanceTestEnvironment{
 
+    private static final String NAME = "Effective Java";
+    private static final String PRICE = "22.90";
+    private static final String YEAR = "2000";
+    private static final String CATEGORY = "Java";
+
     private HomePage homePage;
 
     private EditBookPage editBookPage;
-
     private SuccessPage successPage;
 
     @Before
@@ -36,13 +40,9 @@ public class EditBookIT extends AcceptanceTestEnvironment{
     @Test
     public void shouldEditBook() {
 
-        final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
-        final String price = "22.90";
 
         Book book = new Book();
-        book.setName(name);
+        book.setName(NAME);
 
         mongoClient.save(book);
 
@@ -51,7 +51,7 @@ public class EditBookIT extends AcceptanceTestEnvironment{
                 .editBook(0);
 
         editBookPage.assertIsOpened()
-                .edit(name, category, year, price);
+                .edit(NAME, CATEGORY, YEAR, PRICE);
 
         successPage.assertIsOpened()
                 .goAhead();
@@ -63,16 +63,13 @@ public class EditBookIT extends AcceptanceTestEnvironment{
     public void shouldShowErrorIfNameIsEmpty() {
 
         final String empty_name = "";
-        final String category = "Java";
-        final String year = "2000";
-        final String price = "22.90";
 
         homePage.open()
                 .assertIsOpened()
                 .editBook(0);
 
         editBookPage.assertIsOpened()
-                .edit(empty_name, category, year, price)
+                .edit(empty_name, CATEGORY, YEAR, PRICE)
                 .assertMandatoryNameError();
     }
 
@@ -80,9 +77,6 @@ public class EditBookIT extends AcceptanceTestEnvironment{
     @Test
     public void shouldShowErrorIfPriceIsEmpty() {
 
-        final String name = "Effective Java";
-        final String category = "Java";
-        final String year = "2000";
         final String empty_price = "";
 
         homePage.open()
@@ -90,7 +84,7 @@ public class EditBookIT extends AcceptanceTestEnvironment{
                 .editBook(0);
 
         editBookPage.assertIsOpened()
-                .edit(name, category, year, empty_price)
+                .edit(NAME, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
     }
 
