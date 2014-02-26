@@ -1,8 +1,13 @@
 package com.bookstore.web;
 
+import com.bookstore.service.BookService;
+import com.bookstore.service.exception.BookNameAlreadyExistsException;
+import com.bookstore.service.exception.BookNotFoundException;
 import com.bookstore.web.form.BookForm;
+import com.bookstore.web.form.assembler.BookAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,8 @@ import javax.validation.Valid;
 public class BookController {
 
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
+    private BookService defaultBookService;
 
     @RequestMapping(value = "/showAdd")
     public String showAdd() {
@@ -35,13 +42,15 @@ public class BookController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) {
+    public String create(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) throws BookNameAlreadyExistsException {
 
         logger.debug("Saving new book...");
 
         if (result.hasErrors()) {
            return "showAdd";
         }
+
+        defaultBookService.insert(BookAssembler.toBook(bookForm));
 
         return "success";
     }
@@ -67,7 +76,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/update")
-    public String update(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) {
+    public String update(@ModelAttribute(value = "bookForm") @Valid BookForm bookForm, BindingResult result) throws BookNotFoundException {
 
         logger.debug("Updating book...");
 
@@ -75,6 +84,14 @@ public class BookController {
             return "showEdit";
         }
 
+        defaultBookService.update(BookAssembler.toBook(bookForm));
+
         return "success";
+    }
+
+
+    @Autowired
+    public void setDefaultBookService(BookService defaultBookService) {
+        this.defaultBookService = defaultBookService;
     }
 }

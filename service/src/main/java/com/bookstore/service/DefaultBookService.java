@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service("defaultBookService")
 public class DefaultBookService implements BookService {
@@ -47,6 +49,11 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
+     public List<Book> findAll() {
+        return (List<Book>) bookRepository.findAll();
+    }
+
+    @Override
     public void update(Book book) throws BookNotFoundException {
 
         Book retrievedBook = bookRepository.findByName(book.getName());
@@ -64,6 +71,7 @@ public class DefaultBookService implements BookService {
 
         logger.debug("Book has been updated!");
     }
+
 
 
     @Autowired

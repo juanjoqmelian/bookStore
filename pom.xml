@@ -35,6 +35,7 @@
         <spring-data-commons.version>1.6.3.RELEASE</spring-data-commons.version>
         <jetty.version>6.1.26</jetty.version>
         <mina-core.version>2.0.7</mina-core.version>
+        <jmock-junit4.version>2.6.0</jmock-junit4.version>
     </properties>
 
 
@@ -182,6 +183,12 @@
                 <groupId>org.apache.mina</groupId>
                 <artifactId>mina-core</artifactId>
                 <version>${mina-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jmock</groupId>
+                <artifactId>jmock-junit4</artifactId>
+                <version>${jmock-junit4.version}</version>
                 <scope>test</scope>
             </dependency>
 

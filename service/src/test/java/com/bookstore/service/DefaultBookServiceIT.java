@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -52,6 +54,43 @@ public class DefaultBookServiceIT extends IntegrationTest {
         expectedException.expect(BookNameAlreadyExistsException.class);
 
         Book newBook = bookService.insert(book2);
+    }
+
+    @Test
+    public void findAll_shouldReturnAnEmptyListOfBooks() {
+
+        List<Book> books = bookService.findAll();
+
+        assertThat(books.isEmpty(), is(true));
+    }
+
+    @Test
+    public void findAll_shouldReturnAListWithABook() {
+
+        Book book = initializeBook();
+
+        mongoClient.save(book);
+
+        List<Book> books = bookService.findAll();
+
+        assertThat(books.size(), is(1));
+    }
+
+    @Test
+    public void findAll_shouldReturnAListWithTwoBooks() {
+
+        Book book = initializeBook();
+
+        mongoClient.save(book);
+
+        Book book2 = initializeBook();
+        book2.setName("Different book");
+
+        mongoClient.save(book2);
+
+        List<Book> books = bookService.findAll();
+
+        assertThat(books.size(), is(2));
     }
 
     @Test
