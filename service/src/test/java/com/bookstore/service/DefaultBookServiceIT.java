@@ -53,7 +53,7 @@ public class DefaultBookServiceIT extends IntegrationTest {
 
         expectedException.expect(BookNameAlreadyExistsException.class);
 
-        Book newBook = bookService.insert(book2);
+        bookService.insert(book2);
     }
 
     @Test

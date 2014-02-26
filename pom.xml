@@ -36,6 +36,7 @@
         <jetty.version>6.1.26</jetty.version>
         <mina-core.version>2.0.7</mina-core.version>
         <jmock-junit4.version>2.6.0</jmock-junit4.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     </properties>
 
 
@@ -191,7 +192,12 @@
                 <version>${jmock-junit4.version}</version>
                 <scope>test</scope>
             </dependency>
-
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <scope>test</scope>
+            </dependency>
 
             <!-- Logging dependencies -->
 
