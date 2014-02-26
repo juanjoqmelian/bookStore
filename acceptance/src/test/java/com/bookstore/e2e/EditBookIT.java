@@ -3,6 +3,7 @@ package com.bookstore.e2e;
 import com.bookstore.e2e.page.EditBookPage;
 import com.bookstore.e2e.page.HomePage;
 import com.bookstore.e2e.page.SuccessPage;
+import com.bookstore.model.Book;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,6 +40,11 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         final String category = "Java";
         final String year = "2000";
         final String price = "22.90";
+
+        Book book = new Book();
+        book.setName(name);
+
+        mongoClient.save(book);
 
         homePage.open()
                 .assertIsOpened()

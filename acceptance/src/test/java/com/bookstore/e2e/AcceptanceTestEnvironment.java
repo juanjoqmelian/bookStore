@@ -1,8 +1,10 @@
 package com.bookstore.e2e;
 
+import com.bookstore.e2e.mongo.MongoClient;
 import com.bookstore.e2e.page.WebNavigationFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -24,6 +26,11 @@ public abstract class AcceptanceTestEnvironment {
     private static final String FIREBUG_PATH = "firebug-1.11.4.xpi";
     private static final String FIREBUG_EXTENSION_KEY = "extensions.firebug.currentVersion";
     private static final String FIREBUG_VERSION = "1.11.4";
+
+
+    @Rule
+    public final MongoClient mongoClient = new MongoClient();
+
 
     private static WebDriver driver;
 
