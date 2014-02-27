@@ -1,6 +1,8 @@
 package com.bookstore.web;
 
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(locations = {"classpath:context/servlet-context.xml","classpath:context/common-context.xml"})
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-public class HomeControllerTest {
-
+public class BookControllerTest {
 
     private WebApplicationContext ctx;
 
@@ -30,14 +31,23 @@ public class HomeControllerTest {
         mockMvc =  webAppContextSetup(ctx).build();
     }
 
+    @Ignore
     @Test
-    public void home_shouldReturnHomeView() throws Exception {
+    public void showAdd_shouldRedirectToAddUrl() throws Exception {
 
-        mockMvc.perform(post("/"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("home"));
+        mockMvc.perform(post("/book/showAdd"))
+                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andExpect(MockMvcResultMatchers.forwardedUrl("add"));
     }
 
+    @Test
+    public void add_shouldRedirectToShowAddView() throws Exception {
+
+        mockMvc.perform(post("/book/add"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("bookForm"))
+                .andExpect(MockMvcResultMatchers.view().name("showAdd"));
+    }
 
     @Autowired
     public void setCtx(WebApplicationContext ctx) {
