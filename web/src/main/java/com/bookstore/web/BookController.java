@@ -60,7 +60,7 @@ public class BookController {
 
         logger.debug("Redirecting to edit url...");
 
-        return "redirect:/book/edit/"+id+"/";
+        return String.format("redirect:/book/edit/%s/", id);
     }
 
     @RequestMapping(value = "/edit/{id}")
