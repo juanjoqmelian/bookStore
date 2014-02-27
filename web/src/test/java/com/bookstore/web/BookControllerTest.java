@@ -88,8 +88,8 @@ public class BookControllerTest {
         });
 
         mockMvc.perform(post("/book/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookJson))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("bookForm", bookForm))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("success"));
     }
@@ -105,6 +105,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bookJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
                 .andExpect(MockMvcResultMatchers.view().name("showAdd"));
     }
 
@@ -169,6 +170,7 @@ public class BookControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bookJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
                 .andExpect(MockMvcResultMatchers.view().name("showEdit"));
     }
 

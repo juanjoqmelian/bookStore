@@ -3,6 +3,7 @@ package com.bookstore.web.form.assembler;
 
 import com.bookstore.model.Book;
 import com.bookstore.web.form.BookForm;
+import com.google.common.annotations.VisibleForTesting;
 
 public class BookAssembler {
 
@@ -16,4 +17,9 @@ public class BookAssembler {
         return book;
     }
 
+    @VisibleForTesting
+    public final Book toBookNonStatic(BookForm bookForm) {
+
+        return BookAssembler.toBook(bookForm);
+    }
 }

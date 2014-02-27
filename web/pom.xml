@@ -108,6 +108,13 @@
             <artifactId>jmock-junit4</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Google Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
