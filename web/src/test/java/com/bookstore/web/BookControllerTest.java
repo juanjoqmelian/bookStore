@@ -2,7 +2,6 @@ package com.bookstore.web;
 
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +30,12 @@ public class BookControllerTest {
         mockMvc =  webAppContextSetup(ctx).build();
     }
 
-    @Ignore
     @Test
     public void showAdd_shouldRedirectToAddUrl() throws Exception {
 
         mockMvc.perform(post("/book/showAdd"))
                 .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.forwardedUrl("add"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("add"));
     }
 
     @Test
