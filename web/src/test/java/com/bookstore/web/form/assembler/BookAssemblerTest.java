@@ -16,14 +16,12 @@ public class BookAssemblerTest {
     private static final String YEAR = "2009";
     private static final String PRICE = "32.90";
 
-    private final BookAssembler bookAssembler = new BookAssembler();
-
     @Test
     public void toBook_shouldConvertBookFormToBook() {
 
         BookForm bookForm = initializeBookForm();
 
-        Book book = bookAssembler.toBookNonStatic(bookForm);
+        Book book = BookAssembler.toBook(bookForm);
 
         assertThat(book, is(notNullValue()));
         assertThat(book.getName(), is(bookForm.getName()));
