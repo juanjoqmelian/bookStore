@@ -7,26 +7,21 @@ import com.bookstore.service.exception.BookNameAlreadyExistsException;
 import com.bookstore.web.form.BookForm;
 import com.bookstore.web.form.assembler.BookAssembler;
 import com.google.gson.Gson;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@ContextConfiguration(locations = {"classpath:context/servlet-context.xml","classpath:context/common-context.xml"})
-@WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
+
 public class BookControllerTest {
 
     private static final String NAME = "Effective Java";
@@ -70,7 +65,6 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("showAdd"));
     }
 
-    @Ignore
     @Test
     public void create_shouldCreateANewBookAndShowSuccessView() throws Exception {
 
@@ -82,14 +76,16 @@ public class BookControllerTest {
 
         mockery.checking(new Expectations() {
             {
-                oneOf(mockDefaultBookService).insert(book);
+                oneOf(mockDefaultBookService).insert(with(getBookMatcher(book)));
                 will(returnValue(book));
             }
         });
 
         mockMvc.perform(post("/book/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .requestAttr("bookForm", bookForm))
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", PRICE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("success"));
     }
@@ -136,7 +132,6 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("showEdit"));
     }
 
-    @Ignore
     @Test
     public void update_shouldUpdateABookAndShowSuccessView() throws Exception {
 
@@ -148,13 +143,15 @@ public class BookControllerTest {
 
         mockery.checking(new Expectations() {
             {
-                oneOf(mockDefaultBookService).update(book);
+                oneOf(mockDefaultBookService).update(with(getBookMatcher(book)));
             }
         });
 
         mockMvc.perform(post("/book/update")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(bookJson))
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", PRICE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("success"));
     }
@@ -182,5 +179,20 @@ public class BookControllerTest {
         bookForm.setYear(YEAR);
         bookForm.setPrice(PRICE);
         return bookForm;
+    }
+
+    private TypeSafeMatcher<Book> getBookMatcher(final Book book) {
+
+        return new TypeSafeMatcher<Book>() {
+            @Override
+            protected boolean matchesSafely(Book item) {
+                return book.getName().equals(item.getName());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+
+            }
+        };
     }
 }
