@@ -25,6 +25,8 @@ public class EditBookIT extends AcceptanceTestEnvironment{
         this.homePage = webFactory.homePage();
         this.editBookPage = webFactory.editBookPage();
         this.successPage = webFactory.successPage();
+
+        initializeBookDatabaseForTests();
     }
 
     @Test
@@ -39,12 +41,6 @@ public class EditBookIT extends AcceptanceTestEnvironment{
 
     @Test
     public void shouldEditBook() {
-
-
-        Book book = new Book();
-        book.setName(NAME);
-
-        mongoClient.save(book);
 
         homePage.open()
                 .assertIsOpened()
@@ -66,13 +62,12 @@ public class EditBookIT extends AcceptanceTestEnvironment{
 
         homePage.open()
                 .assertIsOpened()
-                .editBook(0);
+                .editBook(1);
 
         editBookPage.assertIsOpened()
                 .edit(empty_name, CATEGORY, YEAR, PRICE)
                 .assertMandatoryNameError();
     }
-
 
     @Test
     public void shouldShowErrorIfPriceIsEmpty() {
@@ -81,11 +76,31 @@ public class EditBookIT extends AcceptanceTestEnvironment{
 
         homePage.open()
                 .assertIsOpened()
-                .editBook(0);
+                .editBook(2);
 
         editBookPage.assertIsOpened()
                 .edit(NAME, CATEGORY, YEAR, empty_price)
                 .assertMandatoryPriceError();
+    }
+
+
+    private void initializeBookDatabaseForTests() {
+
+        saveBook(NAME, PRICE);
+
+        saveBook("Clean Code", "27.95");
+        saveBook("Refactoring", "18.45");
+
+    }
+
+
+
+    private void saveBook(final String name, final String price) {
+
+        Book book = new Book();
+        book.setName(name);
+        book.setPrice(price);
+        mongoClient.save(book);
     }
 
 }

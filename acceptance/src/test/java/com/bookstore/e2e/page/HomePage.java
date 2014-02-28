@@ -60,7 +60,9 @@ public class HomePage {
 
     private List<WebElement> getEditLinks() {
 
-        return driver.findElements(By.className("link"));
+        List<WebElement> links = driver.findElements(By.className("link"));
+
+        return links;
     }
 
     public HomePage assertIsOpened() {

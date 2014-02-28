@@ -22,7 +22,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-       "classpath:service-context.xml",
+       "classpath:test-service-context.xml",
         "classpath:test-mongodb-context.xml"
 })
 public class DefaultBookServiceIT extends IntegrationTest {

@@ -20,14 +20,21 @@
                 <span>Edit</span>
             </span>
         </div>
-        <div id="row">
-            <span>Effective Java</span>
-            <span>Java</span>
-            <span>2000</span>
-            <span>20.90$</span>
-            <span><a class="link" href="book/showEdit/11111/">Edit</a></span>
+        <div>
+            <ul>
+            <#list books as book>
+
+                <li id="${book.id}">
+                    <span>${book.name!''}</span>
+                    <span>${book.category!''}</span>
+                    <span>${book.year!''}</span>
+                    <span>${book.price!"0.0"}</span>
+                    <span><a class="link" href="book/showEdit/${book.id}/">Edit</a></span>
+                </li>
+            </#list>
+            </ul>
         </div>
-    </table>
+    </div>
     <form id="add" action="book/showAdd">
         <input type="submit" id="addButton" value="Add"/>
     </form>
