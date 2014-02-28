@@ -198,6 +198,28 @@ public class BookControllerTest {
     }
 
     @Test
+    public void update_shouldUpdateABookAndShowSuccessViewIfNonMandatoryFieldsAreEmpty() throws Exception {
+
+        final BookForm bookForm = getBookForm();
+
+        final Book book = BookAssembler.toBook(bookForm);
+
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockDefaultBookService).update(with(getBookMatcher(book)));
+            }
+        });
+
+        mockMvc.perform(post("/book/update")
+                .param("name", NAME)
+                .param("category", "")
+                .param("year", "")
+                .param("price", PRICE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("success"));
+    }
+
+    @Test
     public void update_shouldRedirectToShowEditViewIfNameIsEmpty() throws Exception {
 
         mockMvc.perform(post("/book/update")
