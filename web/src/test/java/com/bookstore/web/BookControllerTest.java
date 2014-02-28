@@ -6,7 +6,6 @@ import com.bookstore.service.BookService;
 import com.bookstore.service.exception.BookNameAlreadyExistsException;
 import com.bookstore.web.form.BookForm;
 import com.bookstore.web.form.assembler.BookAssembler;
-import com.google.gson.Gson;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
@@ -14,7 +13,6 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -72,8 +70,6 @@ public class BookControllerTest {
 
         final Book book = BookAssembler.toBook(bookForm);
 
-        String bookJson = new Gson().toJson(bookForm);
-
         mockery.checking(new Expectations() {
             {
                 oneOf(mockDefaultBookService).insert(with(getBookMatcher(book)));
@@ -91,15 +87,62 @@ public class BookControllerTest {
     }
 
     @Test
-    public void create_shouldDetectErrorInFormAndRedirectToShowAddView() throws Exception {
-
-        final BookForm bookForm = new BookForm();
-
-        String bookJson = new Gson().toJson(bookForm);
+    public void create_shouldRedirectToShowAddViewIfNameIsEmpty() throws Exception {
 
         mockMvc.perform(post("/book/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookJson))
+                        .param("name", "")
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", PRICE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
+                .andExpect(MockMvcResultMatchers.view().name("showAdd"));
+    }
+
+    @Test
+    public void create_shouldCreateABookIfNotMandatoryFieldsAreEmpty() throws Exception {
+
+        final BookForm bookForm = getBookForm();
+
+        final Book book = BookAssembler.toBook(bookForm);
+
+        mockery.checking(new Expectations() {
+            {
+                oneOf(mockDefaultBookService).insert(with(getBookMatcher(book)));
+                will(returnValue(book));
+            }
+        });
+
+        mockMvc.perform(post("/book/create")
+                        .param("name", NAME)
+                        .param("category", "")
+                        .param("year", "")
+                        .param("price", PRICE))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("success"));
+    }
+
+    @Test
+    public void create_shouldRedirectToShowAddViewIfPriceIsEmpty() throws Exception {
+
+        mockMvc.perform(post("/book/create")
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", ""))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
+                .andExpect(MockMvcResultMatchers.view().name("showAdd"));
+    }
+
+    @Test
+    public void create_shouldRedirectToShowAddViewIfPriceIsNegative() throws Exception {
+
+        mockMvc.perform(post("/book/create")
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", "-12.90"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
                 .andExpect(MockMvcResultMatchers.view().name("showAdd"));
@@ -139,8 +182,6 @@ public class BookControllerTest {
 
         final Book book = BookAssembler.toBook(bookForm);
 
-        String bookJson = new Gson().toJson(bookForm);
-
         mockery.checking(new Expectations() {
             {
                 oneOf(mockDefaultBookService).update(with(getBookMatcher(book)));
@@ -157,15 +198,39 @@ public class BookControllerTest {
     }
 
     @Test
-    public void update_shouldDetectErrorAndRedirectToShowEditView() throws Exception {
-
-        final BookForm bookForm = new BookForm();
-
-        String bookJson = new Gson().toJson(bookForm);
+    public void update_shouldRedirectToShowEditViewIfNameIsEmpty() throws Exception {
 
         mockMvc.perform(post("/book/update")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(bookJson))
+                        .param("name", "")
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", "-12.90"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
+                .andExpect(MockMvcResultMatchers.view().name("showEdit"));
+    }
+
+    @Test
+    public void update_shouldRedirectToShowEditViewIfPriceIsEmpty() throws Exception {
+
+        mockMvc.perform(post("/book/update")
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", ""))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
+                .andExpect(MockMvcResultMatchers.view().name("showEdit"));
+    }
+
+    @Test
+    public void update_shouldRedirectToShowEditViewIfPriceIsNegative() throws Exception {
+
+        mockMvc.perform(post("/book/update")
+                        .param("name", NAME)
+                        .param("category", CATEGORY)
+                        .param("year", YEAR)
+                        .param("price", "-12.90"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
                 .andExpect(MockMvcResultMatchers.view().name("showEdit"));
