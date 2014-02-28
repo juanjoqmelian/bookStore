@@ -226,7 +226,7 @@ public class BookControllerTest {
                         .param("name", "")
                         .param("category", CATEGORY)
                         .param("year", YEAR)
-                        .param("price", "-12.90"))
+                        .param("price", PRICE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeHasFieldErrors("bookForm"))
                 .andExpect(MockMvcResultMatchers.view().name("showEdit"));
